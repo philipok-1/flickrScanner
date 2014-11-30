@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+<script src="geoLocate.js"></script>
+
+<link rel='stylesheet' type='text/css' href="stylesheet.css">
+
+<link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+
+        <script>
+
+
+
+
+
+geoLocate()
+
+            $(document).ready(function () {
+
+        $("button").click(function () {
+
+$(this).remove()
+
+
+
+function displayText(element){
+
+
+d=document.createElement("div");
+e=document.createElement("div")
+$(e).html('<p id="tag">Tags:</p>').appendTo("#info").delay(2250).fadeOut(500)
+$(d).html(element).appendTo("#info").hide().fadeIn("slow").delay(2000).fadeOut(500)
+
+
+}
+
+     
+
+var locUrl="https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=aaebf33764521f4c6bf19716da24b6fd&format=json&perpage=100&page=1&has_geo=1&accuracy=16&lon="+glon+"&lat="+glat+"&radius=1&extras=date_taken, owner_name, tags&format=json&jsoncallback=?"
+
+  var info=[]
+
+                    $.getJSON(locUrl,
+
+                    function (data) {
+                      var photoSet=(data.photos.photo);
+
+$.each(photoSet, function(item, photo){
+
+ 			var picUrl="http://farm"+photo.farm+".staticflickr.com/"+photo.server+"/"+photo.id+"_"+photo.secret+"_m.jpg"
+
+
+var idUrl="http://api.flickr.com/services/rest/?method=flickr.photos.getInfo&photo_id="+photo.id+"&secret="+photo.secret+"&api_key=aaebf33764521f4c6bf19716da24b6fd&format=json&jsoncallback=?";
+
+      $.getJSON(idUrl, function (output) {
+e=document.createElement("div");
+
+$(e).html(output.photo.id).addClass("id").appendTo($('#pictures'))
+
+});
+                   
+
+var img = new Image();
+
+$(img).attr('src', picUrl).addClass("image").data("info", photo.tags).fadeIn("slow").appendTo($('#pictures')).click(function notify(){
+displayText(($(img).data("info")))
+
+
+
+});
+
+
+d=document.createElement("div");
+
+$(d).html(photo.title).addClass("title").appendTo($("#pictures"))
+
+return (item<15)
+
+
+});
+
+});
+                });
+            });
+
+
+  </script>
+
+
+    </head>
+
+<script>
+
+
+
+
+</script>
+
+    <body>
+
+<h1> Flickr photos by gps coordinates</h1>
+
+<div id="location">Location:</div>
+
+<br>
+
+        <button id="button" >click to get photos</button>
+
+<div id="info"></div>
+
+<div id="pictures" > </div>
+    </body>
+</html>
+
+
+
+
+

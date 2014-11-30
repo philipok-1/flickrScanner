@@ -1,0 +1,11 @@
+body {font-family: Oxygen}
+
+#info {font-family: Oxygen; position:fixed;width:100px; height: 100px; top:20%;left:50%; right: 50%; border: 1px;}
+
+#h1{font-size: 30px}
+
+#button {font-family: Oxygen; font-size: 20px;}
+
+.image {}
+
+#tag{font-size: 25px; font-weight:bold}
